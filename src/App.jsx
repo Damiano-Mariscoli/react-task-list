@@ -1,30 +1,48 @@
 import "./App.css";
 import { tasks } from "./assets/tasks";
-function App() {
-  return (
-    <>
-      <header className="header-bg">
-        <h1>Task Manager</h1>
-      </header>
+console.log(tasks);
 
-      <main>
-        {tasks
-          .filter((task) => [task.state].includes("completed"))
-          .map((completedTasks) => (
-            <div className="mb-5" key={completedTasks.id}>
-              <div>
-                <ul>
-                  <li className="bold">{completedTasks.title}</li>
-                  <li>Priority:{completedTasks.priority}</li>
-                  <li>Est. time {completedTasks.estimatedTime}</li>
-                </ul>
-                <button>Completed</button>
-              </div>
-            </div>
-          ))}
-      </main>
-    </>
+function Task({ task }) {
+  const { title, priority, estimatedTime } = task;
+  return (
+    <div className="mb-5">
+      <div>
+        <ul>
+          <li className="bold">{title}</li>
+          <li>Priority:{priority}</li>
+          <li>Est. time {estimatedTime}</li>
+        </ul>
+        <button>Completed</button>
+      </div>
+    </div>
   );
+}
+
+function Header() {
+  return (
+    <header className="header-bg">
+      <h1>Task Manager</h1>
+    </header>
+  );
+}
+
+function Main() {
+  const filter = true;
+  const filteredTasks = filter
+    ? tasks.filter((task) => task.state.includes("completed"))
+    : tasks;
+
+  return (
+    <main>
+      {filteredTasks.map((completedTask) => (
+        <Task key={completedTask.id} task={completedTask} />
+      ))}
+    </main>
+  );
+}
+
+function App() {
+  return [<Header />, <Main />];
 }
 
 export default App;
