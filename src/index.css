@@ -35,3 +35,6 @@ ul,ol{
 .mb-5{
   margin-bottom: 10px;
 }
+.bold {
+    font-weight: bold;
+}

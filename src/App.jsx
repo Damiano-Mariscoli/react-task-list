@@ -1,9 +1,9 @@
 import "./App.css";
 import { tasks } from "./assets/tasks";
-console.log(tasks);
+console.log(tasks.length);
 
 function Task({ task }) {
-  const { title, priority, estimatedTime } = task;
+  const { title, priority, estimatedTime, state } = task;
   return (
     <div className="mb-5">
       <div>
@@ -12,7 +12,7 @@ function Task({ task }) {
           <li>Priority:{priority}</li>
           <li>Est. time {estimatedTime}</li>
         </ul>
-        <button>Completed</button>
+        <button>{state}</button>
       </div>
     </div>
   );
@@ -27,15 +27,26 @@ function Header() {
 }
 
 function Main() {
-  const filter = true;
-  const filteredTasks = filter
-    ? tasks.filter((task) => task.state.includes("completed"))
-    : tasks;
+  const currentTasks = [];
+  const completedTasks = [];
+
+  tasks.forEach((task) => {
+    if (task.state.includes("completed")) {
+      completedTasks.push(task);
+    } else {
+      currentTasks.push(task);
+    }
+  });
 
   return (
     <main>
-      {filteredTasks.map((completedTask) => (
+      <h2>Task completate: ({completedTasks.length})</h2>
+      {completedTasks.map((completedTask) => (
         <Task key={completedTask.id} task={completedTask} />
+      ))}
+      <h2>Task completate: ({currentTasks.length})</h2>
+      {currentTasks.map((currentTask) => (
+        <Task key={currentTask.id} task={currentTask} />
       ))}
     </main>
   );
