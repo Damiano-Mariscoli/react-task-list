@@ -1,6 +1,3 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
@@ -84,13 +81,18 @@ function App() {
       </header>
 
       <main className="bg-primary">
-        <ul>
-          {tasks
-            .filter((task) => [task.state].includes("completed"))
-            .map((completedTasks) => (
-              <li key={completedTasks.id}>{completedTasks.title}</li>
-            ))}
-        </ul>
+        {tasks
+          .filter((task) => [task.state].includes("completed"))
+          .map((completedTasks) => (
+            <div className="mb-5 d-flex" key={completedTasks.id}>
+              <ul>
+                <li className="bold">{completedTasks.title}</li>
+                <li>Priority:{completedTasks.priority}</li>
+                <li>Est. time {completedTasks.estimatedTime}</li>
+              </ul>
+              <button>Completed</button>
+            </div>
+          ))}
       </main>
     </>
   );
